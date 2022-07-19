@@ -1,0 +1,398 @@
+% Supplementary figures 
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE,
+                      comment = "##",
+                      collapse = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+
+```
+
+
+
+```{r warning=FALSE, message=FALSE, echo=FALSE}
+library(tidyverse)
+library(EnvRtype)
+library(metan)
+library(rio)
+library(ggrepel)
+library(ggridges)
+
+my_theme <- 
+  theme_bw() +
+  theme(panel.spacing = unit(0, "cm"),
+        panel.grid = element_blank(),
+        legend.position = "bottom")
+```
+
+
+```{r echo=FALSE}
+#
+me1 <- c("E3", "E4", "E5")
+me2 <- c("E1", "E2", "E7")
+me3 <- c("E6")
+me4 <- c("E8")
+
+df_traits <- 
+  import("https://bit.ly/df_traits_wheat") |> 
+  as_factor(1:6) |> 
+    mutate(me = case_when(ENV %in% me1 ~ "ME1",
+                        ENV %in% me2 ~ "ME2",
+                        ENV %in% me3 ~ "ME3",
+                        ENV %in% me4 ~ "ME4"))
+
+
+env_data <- import("https://bit.ly/df_climate_tidy")
+
+```
+
+
+
+# Distribution of climate variables
+
+```{r, echo=FALSE}
+
+env_data_me <-
+  env_data |>
+  mutate(me = case_when(env %in% me1 ~ "ME1",
+                        env %in% me2 ~ "ME2",
+                        env %in% me3 ~ "ME3",
+                        env %in% me4 ~ "ME4"))
+
+# long format for climate data
+env_data_d <-
+  env_data_me |>
+  remove_cols(env, prec, LON:YYYYMMDD, daysFromStart) |>
+  pivot_longer(-me)
+
+# long format for grain yield
+df_gy_dist <-
+  df_traits |>
+  select(me, GY) |>
+  mutate(name = "GY", .after = me) |>
+  rename(value = GY)
+
+
+########## distribution
+
+# bind climate and GY
+env_data_d <- rbind(df_gy_dist, env_data_d)
+# mean values for each trait
+env_data_mean <- means_by(env_data_d, name)
+
+
+ggplot(env_data_d, aes(x = value, y = me, fill = me)) +
+  geom_density_ridges(scale = 0.9) +
+  geom_vline(data = env_data_mean,
+             aes(xintercept = value),
+             linetype = 2) +
+  facet_grid(~name, scales = "free") +
+  theme(panel.grid.minor = element_blank(),
+        legend.position = "bottom",
+        legend.title = element_blank()) +
+  scale_y_discrete(expand = expansion(c(0, 0.05))) +
+  labs(x = "Observed value",
+       y = "Density",
+       fill = "") +
+  my_theme
+
+```
+
+
+# Correlation analysis
+```{r , echo=FALSE, fig.cap="correlation analysis"}
+library(corrr)
+env_data |> 
+  select_cols(tmean:vpd) |> 
+  correlate() |> 
+  network_plot() +
+  guides(color = guide_colorbar(barheight = 1,
+                                barwidth = 20,
+                                ticks.colour = "black")) +
+  theme(legend.position = "bottom")
+
+
+```
+
+
+
+
+# Environmental tipology {.panelset}
+```{r, echo=FALSE}
+names.window <-
+  c('1-Tillering',
+    '2-Boosting',
+    '3-heading/flowering',
+    '4-kernel milk stage',
+    '5-physiological maturity',
+    "6-sssss")
+
+out <-
+  env_typing(env.data = env_data,
+             env.id = "env",
+             var.id = c("tmax", "vpd", "rta", "etp", "rh", "prec"),
+             by.interval = TRUE,
+             time.window = c(0, 30, 55, 70, 95, 130),
+             names.window = names.window)
+
+out2 <-
+  separate(out,
+           env.variable,
+           into = c("var", "freq"),
+           sep = "_",
+           extra = "drop") |>
+  mutate(me = case_when(env %in% me1 ~ "ME1",
+                        env %in% me2 ~ "ME2",
+                        env %in% me3 ~ "ME3",
+                        env %in% me4 ~ "ME4"))
+
+```
+
+
+## etp
+```{r , echo=FALSE, fig.cap="Potential evapotranspiration each environment (a), and mega-environment (b) across distinct crop stages of spring wheat.", fig.width=13, fig.height=7}
+# plot the distribution of envirotypes
+variable <- "etp"
+p1 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  ggplot() +
+  geom_bar(aes(x=Freq, y=env,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_grid(me~interval, scales = "free", space = "free")+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab(expression(Relative~Frequency~of~the~potential~evapotranspiration~(mm~day^{-1})))+
+  ylab("Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom')
+
+# by mega environment
+p2 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  sum_by(me, freq, interval) |>
+  ggplot() +
+  geom_bar(aes(x=Freq, y=me,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_wrap(~interval, nrow = 1)+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab(expression(Relative~Frequency~of~the~potential~evapotranspiration~(mm~day^{-1})))+
+  ylab("Mega Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom') +
+  scale_fill_discrete(direction = 1)
+
+arrange_ggplot(p1, p2,
+               heights = c(0.6, 0.4),
+               tag_levels = "a",
+               guides = "collect")
+```
+
+
+
+## rh
+```{r , echo=FALSE, fig.cap="Relative humidity in each environment (a), and mega-environment (b) across distinct crop stages of spring wheat.", fig.width=13, fig.height=7}
+# plot the distribution of envirotypes
+variable <- "rh"
+p1 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  ggplot() +
+  geom_bar(aes(x=Freq, y=env,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_grid(me~interval, scales = "free", space = "free")+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab('Relative Frequency of the relative humidity (%)')+
+  ylab("Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom')
+
+# by mega environment
+p2 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  sum_by(me, freq, interval) |>
+  ggplot() +
+  geom_bar(aes(x=Freq, y=me,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_wrap(~interval, nrow = 1)+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab('Relative Frequency of the relative humidity (%)')+
+  ylab("Mega Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom') +
+  scale_fill_discrete(direction = 1)
+
+arrange_ggplot(p1, p2,
+               heights = c(0.6, 0.4),
+               tag_levels = "a",
+               guides = "collect")
+
+```
+
+
+
+## vpd
+```{r , echo=FALSE, fig.cap="Quantiles for vapor pressure deficit in each environment (a), and mega-environment (b) across distinct crop stages of spring wheat.", fig.width=13, fig.height=7}
+# plot the distribution of envirotypes
+variable <- "vpd"
+p1 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  ggplot() +
+  geom_bar(aes(x=Freq, y=env,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_grid(me~interval, scales = "free", space = "free")+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab(expression(Relative~Frequency~of~the~vapor~pressure~deficit~(mm~day^{-1})))+
+  ylab("Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom')
+
+# by mega environment
+p2 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  sum_by(me, freq, interval) |>
+  ggplot() +
+  geom_bar(aes(x=Freq, y=me,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_wrap(~interval, nrow = 1)+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab(expression(Relative~Frequency~of~the~vapor~pressure~deficit~(KPa~day^{-1})))+
+  ylab("Mega Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom') +
+  scale_fill_discrete(direction = 1)
+
+arrange_ggplot(p1, p2,
+               heights = c(0.6, 0.4),
+               tag_levels = "a",
+               guides = "collect")
+```
+
+
+
+## prec
+```{r , echo=FALSE, fig.cap="Quantiles for the rainfall precipitation in each environment (a), and mega-environment (b) across distinct crop stages of spring wheat.", fig.width=13, fig.height=7}
+# plot the distribution of envirotypes
+variable <- "prec"
+p1 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  ggplot() +
+  geom_bar(aes(x=Freq, y=env,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_grid(me~interval, scales = "free", space = "free")+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab(expression(Relative~Frequency~of~the~rainfall~precipitation~(mm~day^{-1})))+
+  ylab("Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom')
+
+# by mega environment
+p2 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  sum_by(me, freq, interval) |>
+  ggplot() +
+  geom_bar(aes(x=Freq, y=me,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_wrap(~interval, nrow = 1)+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab(expression(Relative~Frequency~of~the~rainfall~precipitation~(mm~day^{-1})))+
+  ylab("Mega Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom') +
+  scale_fill_discrete(direction = 1)
+
+
+arrange_ggplot(p1, p2,
+               heights = c(0.6, 0.4),
+               tag_levels = "a",
+               guides = "collect")
+```
+
+
+

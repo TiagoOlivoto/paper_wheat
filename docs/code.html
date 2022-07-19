@@ -1,0 +1,3306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+
+    
+    
+    <title>Analysis</title>
+
+        <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="site_libs/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+        <script src="site_libs/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+        <script src="site_libs/navigation-1.1/tabsets.js"></script>
+        <link href="site_libs/magnific-popup-1.1.0/magnific-popup.css" rel="stylesheet" />
+        <script src="site_libs/magnific-popup-1.1.0/jquery.magnific-popup.min.js"></script>
+        <link href="site_libs/readthedown-0.1/readthedown.css" rel="stylesheet" />
+        <link href="site_libs/readthedown-0.1/readthedown_fonts_embed.css" rel="stylesheet" />
+        <script src="site_libs/readthedown-0.1/readthedown.js"></script>
+        <link href="site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+        <script src="site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+        <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+        <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+    
+    
+        <style type="text/css">code{white-space: pre;}</style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {  background-color: #f8f8f8; }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ef2929; } /* Alert */
+      code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #c4a000; } /* Attribute */
+      code span.bn { color: #0000cf; } /* BaseN */
+      code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4e9a06; } /* Char */
+      code span.cn { color: #000000; } /* Constant */
+      code span.co { color: #8f5902; font-style: italic; } /* Comment */
+      code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+      code span.dt { color: #204a87; } /* DataType */
+      code span.dv { color: #0000cf; } /* DecVal */
+      code span.er { color: #a40000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #0000cf; } /* Float */
+      code span.fu { color: #000000; } /* Function */
+      code span.im { } /* Import */
+      code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+      code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+      code span.ot { color: #8f5902; } /* Other */
+      code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+      code span.sc { color: #000000; } /* SpecialChar */
+      code span.ss { color: #4e9a06; } /* SpecialString */
+      code span.st { color: #4e9a06; } /* String */
+      code span.va { color: #000000; } /* Variable */
+      code span.vs { color: #4e9a06; } /* VerbatimString */
+      code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+    </style>
+    
+    
+    <!-- tabsets -->
+    <script>
+      $(document).ready(function () {
+	  window.buildTabsets("toc");
+      });
+      $(document).ready(function () {
+	  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+	      $(this).parent().toggleClass('nav-tabs-open')
+	  });
+      });
+    </script>
+
+    <!-- code folding -->
+    
+    <!-- code download -->
+    
+    <!-- tabsets dropdown -->
+
+    <style type="text/css">
+      .tabset-dropdown > .nav-tabs {
+	  display: inline-table;
+	  max-height: 500px;
+	  min-height: 44px;
+	  overflow-y: auto;
+	  background: white;
+	  border: 1px solid #ddd;
+	  border-radius: 4px;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li.active:before {
+	  content: "";
+	  font-family: 'Glyphicons Halflings';
+	  display: inline-block;
+	  padding: 10px;
+	  border-right: 1px solid #ddd;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+	  content: "&#xe258;";
+	  border: none;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+	  content: "";
+	  font-family: 'Glyphicons Halflings';
+	  display: inline-block;
+	  padding: 10px;
+	  border-right: 1px solid #ddd;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li.active {
+	  display: block;
+      }
+
+      .tabset-dropdown > .nav-tabs > li.active a {
+  	  padding: 0 15px !important;
+      }
+
+      .tabset-dropdown > .nav-tabs > li > a,
+      .tabset-dropdown > .nav-tabs > li > a:focus,
+      .tabset-dropdown > .nav-tabs > li > a:hover {
+	  border: none;
+	  display: inline-block;
+	  border-radius: 4px;
+	  background-color: transparent;
+      }
+      
+      .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+	  display: block;
+	  float: none;
+      }
+      
+      .tabset-dropdown > .nav-tabs > li {
+	  display: none;
+	  margin-left: 0 !important;
+      }
+    </style>
+    
+</head>
+
+<body class="preload">
+
+   	
+         <!-- readthedown start -->   
+   <div id="content" data-toggle="wy-nav-shift">
+     <nav id="nav-top" role="navigation" aria-label="top navigation">
+       <a role="button" href="#" data-toggle="wy-nav-top"><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+     </nav>
+         
+   
+      
+      <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Supplementary Material</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li>
+        <a href="index.html">
+          <span class="fa fa-home"></span>
+           
+          About
+        </a>
+      </li>
+      <li>
+        <a href="code.html">
+          <span class="fa fa-file-code-o"></span>
+           
+          Sup. Codes
+        </a>
+      </li>
+      <li>
+        <a href="sup_figures.html">
+          <span class="fa fa-chart-area"></span>
+           
+          Sup. Figures
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <span class="fa fa-download"></span>
+           
+          Code and data
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <span class="ai ai ai ai-doi ai"></span>
+           
+          Doi
+        </a>
+      </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+        <a href="https://github.com/TiagoOlivoto/metan">
+          <span class="fa fa-github"></span>
+           
+          metan
+        </a>
+      </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container -->
+      </div><!--/.navbar -->
+        
+      <h1 class="title">Analysis</h1>
+      
+         <!-- readthedown authors -->
+   <div id="sidebar">
+    <h2><a href="#content">Analysis</a></h2>
+    <div id="toc">
+      <ul>
+      <li><a href="#libraries"><span class="toc-section-number">1</span> Libraries</a></li>
+      <li><a href="#datasets"><span class="toc-section-number">2</span> Datasets</a>
+      <ul>
+      <li><a href="#traits"><span class="toc-section-number">2.1</span> Traits</a></li>
+      <li><a href="#climate-variables"><span class="toc-section-number">2.2</span> Climate variables</a>
+      <ul>
+      <li><a href="#scripts-to-gather-data"><span class="toc-section-number">2.2.1</span> Scripts to gather data</a></li>
+      <li><a href="#tidy-climate-data"><span class="toc-section-number">2.2.2</span> Tidy climate data</a></li>
+      </ul></li>
+      </ul></li>
+      <li><a href="#scripts"><span class="toc-section-number">3</span> Scripts</a>
+      <ul>
+      <li><a href="#deviance-analysis"><span class="toc-section-number">3.1</span> Deviance analysis</a>
+      <ul>
+      <li><a href="#model"><span class="toc-section-number">3.1.1</span> Model</a></li>
+      <li><a href="#blups"><span class="toc-section-number">3.1.2</span> BLUPs</a></li>
+      <li><a href="#blup-based-stability"><span class="toc-section-number">3.1.3</span> BLUP-based stability</a></li>
+      <li><a href="#gge"><span class="toc-section-number">3.1.4</span> GGE</a></li>
+      <li><a href="#waasby"><span class="toc-section-number">3.1.5</span> WAASBY</a></li>
+      </ul></li>
+      <li><a href="#correlation-between-climate-variables"><span class="toc-section-number">3.2</span> Correlation between climate variables</a></li>
+      <li><a href="#environmental-kinships"><span class="toc-section-number">3.3</span> Environmental kinships</a></li>
+      <li><a href="#principal-component-analysis"><span class="toc-section-number">3.4</span> Principal Component Analysis</a></li>
+      <li><a href="#environmental-tipology"><span class="toc-section-number">3.5</span> Environmental tipology</a></li>
+      </ul></li>
+      <li><a href="#section-info"><span class="toc-section-number">4</span> Section info</a></li>
+      </ul>
+    </div>
+    <div id="postamble" data-toggle="wy-nav-shift" class="status">
+                </div>
+   </div>
+     
+
+   
+      
+   
+<!-- Don't indent these lines or it will mess pre blocks indentation --> 
+<div id="main">
+<div id="libraries" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Libraries</h1>
+<p>To reproduce the examples of this material, the R packages the following packages are needed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(EnvRtype)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metan)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rio)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(superheat)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrr)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>my_theme <span class="ot">&lt;-</span> </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="dv">0</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+</div>
+<div id="datasets" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Datasets</h1>
+<div id="traits" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Traits</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>me1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;E3&quot;</span>, <span class="st">&quot;E4&quot;</span>, <span class="st">&quot;E5&quot;</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>me2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;E1&quot;</span>, <span class="st">&quot;E2&quot;</span>, <span class="st">&quot;E7&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>me3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;E6&quot;</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>me4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;E8&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>df_traits <span class="ot">&lt;-</span> </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">import</span>(<span class="st">&quot;https://bit.ly/df_traits_wheat&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_factor</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">me =</span> <span class="fu">case_when</span>(ENV <span class="sc">%in%</span> me1 <span class="sc">~</span> <span class="st">&quot;ME1&quot;</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                        ENV <span class="sc">%in%</span> me2 <span class="sc">~</span> <span class="st">&quot;ME2&quot;</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                        ENV <span class="sc">%in%</span> me3 <span class="sc">~</span> <span class="st">&quot;ME3&quot;</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                        ENV <span class="sc">%in%</span> me4 <span class="sc">~</span> <span class="st">&quot;ME4&quot;</span>))</span></code></pre></div>
+</div>
+<div id="climate-variables" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Climate variables</h2>
+<div id="scripts-to-gather-data" class="section level3" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Scripts to gather data</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_env <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://bit.ly/loc_info_wheat&quot;</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ENV <span class="ot">&lt;-</span> df_env<span class="sc">$</span>ENV <span class="sc">|&gt;</span> <span class="fu">as_character</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>LAT <span class="ot">&lt;-</span> df_env<span class="sc">$</span>LAT</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>LON <span class="ot">&lt;-</span> df_env<span class="sc">$</span>LON</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>ALT <span class="ot">&lt;-</span> df_env<span class="sc">$</span>ALT</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>START <span class="ot">&lt;-</span> df_env<span class="sc">$</span>START</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>END <span class="ot">&lt;-</span> df_env<span class="sc">$</span>END</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># see more at https://github.com/allogamous/EnvRtype</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>df_climate <span class="ot">&lt;-</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_weather</span>(<span class="at">env.id =</span> ENV,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">lat =</span> LAT,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">lon =</span> LON,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">start.day =</span> START,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>              <span class="at">end.day =</span> END)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># GDD: Growing Degree Day (oC/day)</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># FRUE: Effect of temperature on radiation use efficiency (from 0 to 1)</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># T2M_RANGE: Daily Temperature Range (oC day)</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># SPV: Slope of saturation vapour pressure curve (kPa.Celsius)</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># VPD: Vapour pressure deficit (kPa)</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># ETP: Potential Evapotranspiration (mm.day)</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co"># PEPT: Deficit by Precipitation (mm.day)</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># n: Actual duration of sunshine (hour)</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co"># N: Daylight hours (hour)</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># RTA: Extraterrestrial radiation (MJ/m^2/day)</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># SRAD: Solar radiation (MJ/m^2/day)</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># T2M: Temperature at 2 Meters</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co"># T2M_MAX: Maximum Temperature at 2 Meters</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co"># T2M_MIN: Minimum Temperature at 2 Meters</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co"># PRECTOT: Precipitation</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># WS2M: Wind Speed at 2 Meters</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co"># RH2M: Relative Humidity at 2 Meters</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># T2MDEW: Dew/Frost Point at 2 Meters</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co"># ALLSKY_SFC_LW_DWN: Downward Thermal Infrared (Longwave) Radiative Flux</span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co"># ALLSKY_SFC_SW_DWN: All Sky Insolation Incident on a Horizontal Surface</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># ALLSKY_TOA_SW_DWN: Top-of-atmosphere Insolation</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co"># [1] &quot;env&quot;       &quot;ETP&quot;       &quot;GDD&quot;         &quot;PETP&quot;      &quot;RH2M&quot;      &quot;SPV&quot;</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co"># [8] &quot;T2M&quot;       &quot;T2M_MAX&quot;   &quot;T2M_MIN&quot;   &quot;T2M_RANGE&quot; &quot;T2MDEW&quot;    &quot;VPD&quot;</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute other parameters</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>env_data <span class="ot">&lt;-</span></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  df_climate <span class="sc">%&gt;%</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">param_temperature</span>(<span class="at">Tbase1 =</span> <span class="dv">5</span>, <span class="co"># choose the base temperature here</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>                    <span class="at">Tbase2 =</span> <span class="dv">28</span>, <span class="co"># choose the base temperature here</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>                    <span class="at">merge =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">param_atmospheric</span>(<span class="at">merge =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">param_radiation</span>(<span class="at">merge =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="tidy-climate-data" class="section level3" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Tidy climate data</h3>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>env_data <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;https://bit.ly/df_climate_tidy&quot;</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(env_data)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    991 obs. of  23 variables:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ env          : chr  &quot;E1&quot; &quot;E1&quot; &quot;E1&quot; &quot;E1&quot; ...</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ LON          : num  -46.1 -46.1 -46.1 -46.1 -46.1 ...</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ LAT          : num  -19.4 -19.4 -19.4 -19.4 -19.4 ...</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ YEAR         : int  2018 2018 2018 2018 2018 2018 2018 2018 2018 2018 ...</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ MM           : int  5 5 5 5 5 5 5 5 5 5 ...</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ DD           : int  2 3 4 5 6 7 8 9 10 11 ...</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ DOY          : int  122 123 124 125 126 127 128 129 130 131 ...</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ YYYYMMDD     : chr  &quot;05/02/2018&quot; &quot;05/03/2018&quot; &quot;05/04/2018&quot; &quot;05/05/2018&quot; ...</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ daysFromStart: int  1 2 3 4 5 6 7 8 9 10 ...</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ tmean        : num  19.5 20 20.8 20.9 21.2 ...</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ tmax         : num  27.9 28.5 29.1 28.8 28.3 ...</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ tmin         : num  12.4 11.9 13.5 14.4 15 ...</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ prec         : num  0 0 0 0.03 0.15 0.09 0 0.02 0.02 0 ...</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ ws           : num  1.81 1.13 1.5 1.74 1.5 1.96 2.19 2.66 2.7 1.71 ...</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ rh           : num  64.3 67.7 65.8 71.6 70.3 ...</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ tdew         : num  11.5 12.9 13.2 14.8 14.9 ...</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ gdd          : num  15.1 14.9 15.8 16.2 16.5 ...</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ frue         : num  0.721 0.723 0.777 0.79 0.793 ...</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ trange       : num  15.5 16.6 15.6 14.5 13.3 ...</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ vpd          : num  1.24 1.15 1.27 1.11 1.08 ...</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ spv          : num  0.146 0.146 0.156 0.158 0.158 ...</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ etp          : num  9.34 8.71 9.12 9.09 8.05 ...</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ rta          : num  28.7 28.6 28.4 28.3 28.1 ...</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>id_var <span class="ot">&lt;-</span> <span class="fu">names</span>(env_data)[<span class="dv">10</span><span class="sc">:</span><span class="dv">23</span>]</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="scripts" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Scripts</h1>
+<div id="deviance-analysis" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Deviance analysis</h2>
+<div id="model" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Model</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">waasb</span>(df_traits,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">env =</span> ENV,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">gen =</span> LINHAGEM,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">rep =</span> BLOCO,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">resp =</span> GY,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">wresp =</span> <span class="dv">65</span>) <span class="co"># maior peso para performance</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Evaluating trait GY |============================================| 100% 00:00:02 </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## ---------------------------------------------------------------------------</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## P-values for Likelihood Ratio Test of the analyzed traits</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## ---------------------------------------------------------------------------</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">##     model       GY</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  COMPLETE       NA</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">##       GEN 3.42e-03</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   GEN:ENV 1.60e-12</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="do">## ---------------------------------------------------------------------------</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="do">## All variables with significant (p &lt; 0.05) genotype-vs-environment interaction</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>waasb_env <span class="ot">&lt;-</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  mod<span class="sc">$</span>GY<span class="sc">$</span>model <span class="sc">%&gt;%</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_cols</span>(type, Code, Y, WAASB) <span class="sc">%&gt;%</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(type <span class="sc">==</span> <span class="st">&quot;ENV&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove_cols</span>(type) <span class="sc">%&gt;%</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">env =</span> Code)</span></code></pre></div>
+</div>
+<div id="blups" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> BLUPs</h3>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>blupge <span class="ot">&lt;-</span> <span class="fu">gmd</span>(mod, <span class="st">&quot;blupge&quot;</span>) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>blupge <span class="sc">|&gt;</span> </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_mat</span>(GEN, ENV, GY) <span class="sc">|&gt;</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+E1
+</th>
+<th style="text-align:right;">
+E2
+</th>
+<th style="text-align:right;">
+E3
+</th>
+<th style="text-align:right;">
+E4
+</th>
+<th style="text-align:right;">
+E5
+</th>
+<th style="text-align:right;">
+E6
+</th>
+<th style="text-align:right;">
+E7
+</th>
+<th style="text-align:right;">
+E8
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+BRS264
+</td>
+<td style="text-align:right;">
+5282.212
+</td>
+<td style="text-align:right;">
+4375.401
+</td>
+<td style="text-align:right;">
+4594.222
+</td>
+<td style="text-align:right;">
+4309.549
+</td>
+<td style="text-align:right;">
+4281.875
+</td>
+<td style="text-align:right;">
+1388.500
+</td>
+<td style="text-align:right;">
+4780.219
+</td>
+<td style="text-align:right;">
+3097.102
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CD151
+</td>
+<td style="text-align:right;">
+5133.199
+</td>
+<td style="text-align:right;">
+3981.884
+</td>
+<td style="text-align:right;">
+3926.679
+</td>
+<td style="text-align:right;">
+3794.016
+</td>
+<td style="text-align:right;">
+3484.885
+</td>
+<td style="text-align:right;">
+1319.721
+</td>
+<td style="text-align:right;">
+4620.826
+</td>
+<td style="text-align:right;">
+2623.267
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ORS1403
+</td>
+<td style="text-align:right;">
+4766.968
+</td>
+<td style="text-align:right;">
+3736.375
+</td>
+<td style="text-align:right;">
+4220.757
+</td>
+<td style="text-align:right;">
+3889.708
+</td>
+<td style="text-align:right;">
+3180.280
+</td>
+<td style="text-align:right;">
+1257.991
+</td>
+<td style="text-align:right;">
+4654.939
+</td>
+<td style="text-align:right;">
+2338.469
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TBIOATON
+</td>
+<td style="text-align:right;">
+5245.098
+</td>
+<td style="text-align:right;">
+4194.017
+</td>
+<td style="text-align:right;">
+4931.574
+</td>
+<td style="text-align:right;">
+4342.001
+</td>
+<td style="text-align:right;">
+3907.777
+</td>
+<td style="text-align:right;">
+1403.818
+</td>
+<td style="text-align:right;">
+4381.267
+</td>
+<td style="text-align:right;">
+3334.566
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TBIODUQUE
+</td>
+<td style="text-align:right;">
+4721.233
+</td>
+<td style="text-align:right;">
+4002.825
+</td>
+<td style="text-align:right;">
+4320.157
+</td>
+<td style="text-align:right;">
+4029.873
+</td>
+<td style="text-align:right;">
+3515.728
+</td>
+<td style="text-align:right;">
+1194.683
+</td>
+<td style="text-align:right;">
+4173.383
+</td>
+<td style="text-align:right;">
+2472.263
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI09004
+</td>
+<td style="text-align:right;">
+5405.136
+</td>
+<td style="text-align:right;">
+3823.713
+</td>
+<td style="text-align:right;">
+4219.419
+</td>
+<td style="text-align:right;">
+4673.127
+</td>
+<td style="text-align:right;">
+3945.283
+</td>
+<td style="text-align:right;">
+1567.313
+</td>
+<td style="text-align:right;">
+4063.997
+</td>
+<td style="text-align:right;">
+4068.188
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI09007
+</td>
+<td style="text-align:right;">
+5306.519
+</td>
+<td style="text-align:right;">
+4077.755
+</td>
+<td style="text-align:right;">
+4036.934
+</td>
+<td style="text-align:right;">
+4251.391
+</td>
+<td style="text-align:right;">
+3699.024
+</td>
+<td style="text-align:right;">
+1348.749
+</td>
+<td style="text-align:right;">
+3712.071
+</td>
+<td style="text-align:right;">
+2862.309
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI09031
+</td>
+<td style="text-align:right;">
+5113.092
+</td>
+<td style="text-align:right;">
+3957.394
+</td>
+<td style="text-align:right;">
+4254.325
+</td>
+<td style="text-align:right;">
+4028.081
+</td>
+<td style="text-align:right;">
+3583.433
+</td>
+<td style="text-align:right;">
+1515.600
+</td>
+<td style="text-align:right;">
+3624.090
+</td>
+<td style="text-align:right;">
+2929.144
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI09037
+</td>
+<td style="text-align:right;">
+5349.630
+</td>
+<td style="text-align:right;">
+4144.215
+</td>
+<td style="text-align:right;">
+3984.157
+</td>
+<td style="text-align:right;">
+3818.913
+</td>
+<td style="text-align:right;">
+3395.113
+</td>
+<td style="text-align:right;">
+1322.178
+</td>
+<td style="text-align:right;">
+4082.302
+</td>
+<td style="text-align:right;">
+3068.612
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI130679
+</td>
+<td style="text-align:right;">
+4898.978
+</td>
+<td style="text-align:right;">
+3482.268
+</td>
+<td style="text-align:right;">
+4240.474
+</td>
+<td style="text-align:right;">
+4341.289
+</td>
+<td style="text-align:right;">
+3503.989
+</td>
+<td style="text-align:right;">
+1290.447
+</td>
+<td style="text-align:right;">
+4090.410
+</td>
+<td style="text-align:right;">
+2681.753
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI130755
+</td>
+<td style="text-align:right;">
+4621.478
+</td>
+<td style="text-align:right;">
+3607.496
+</td>
+<td style="text-align:right;">
+4299.799
+</td>
+<td style="text-align:right;">
+3979.093
+</td>
+<td style="text-align:right;">
+3228.663
+</td>
+<td style="text-align:right;">
+1536.910
+</td>
+<td style="text-align:right;">
+4279.266
+</td>
+<td style="text-align:right;">
+2956.022
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI130758
+</td>
+<td style="text-align:right;">
+4420.186
+</td>
+<td style="text-align:right;">
+3883.127
+</td>
+<td style="text-align:right;">
+4110.813
+</td>
+<td style="text-align:right;">
+3996.567
+</td>
+<td style="text-align:right;">
+3162.743
+</td>
+<td style="text-align:right;">
+1465.386
+</td>
+<td style="text-align:right;">
+4025.409
+</td>
+<td style="text-align:right;">
+2915.004
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI131313
+</td>
+<td style="text-align:right;">
+4638.819
+</td>
+<td style="text-align:right;">
+3365.552
+</td>
+<td style="text-align:right;">
+4406.752
+</td>
+<td style="text-align:right;">
+3928.296
+</td>
+<td style="text-align:right;">
+3836.338
+</td>
+<td style="text-align:right;">
+1027.820
+</td>
+<td style="text-align:right;">
+4130.877
+</td>
+<td style="text-align:right;">
+3607.132
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14001
+</td>
+<td style="text-align:right;">
+4767.310
+</td>
+<td style="text-align:right;">
+3882.658
+</td>
+<td style="text-align:right;">
+4113.718
+</td>
+<td style="text-align:right;">
+4005.160
+</td>
+<td style="text-align:right;">
+3987.910
+</td>
+<td style="text-align:right;">
+1274.379
+</td>
+<td style="text-align:right;">
+4414.220
+</td>
+<td style="text-align:right;">
+3260.650
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14022
+</td>
+<td style="text-align:right;">
+5795.451
+</td>
+<td style="text-align:right;">
+3893.188
+</td>
+<td style="text-align:right;">
+3657.076
+</td>
+<td style="text-align:right;">
+3906.779
+</td>
+<td style="text-align:right;">
+3444.757
+</td>
+<td style="text-align:right;">
+1409.069
+</td>
+<td style="text-align:right;">
+4351.759
+</td>
+<td style="text-align:right;">
+2821.162
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14026
+</td>
+<td style="text-align:right;">
+5587.829
+</td>
+<td style="text-align:right;">
+4356.687
+</td>
+<td style="text-align:right;">
+4478.538
+</td>
+<td style="text-align:right;">
+4073.389
+</td>
+<td style="text-align:right;">
+3590.865
+</td>
+<td style="text-align:right;">
+1644.671
+</td>
+<td style="text-align:right;">
+4746.980
+</td>
+<td style="text-align:right;">
+3500.302
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14050
+</td>
+<td style="text-align:right;">
+5138.250
+</td>
+<td style="text-align:right;">
+3740.847
+</td>
+<td style="text-align:right;">
+4237.278
+</td>
+<td style="text-align:right;">
+4146.238
+</td>
+<td style="text-align:right;">
+3727.650
+</td>
+<td style="text-align:right;">
+1120.703
+</td>
+<td style="text-align:right;">
+3846.712
+</td>
+<td style="text-align:right;">
+2737.465
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14055
+</td>
+<td style="text-align:right;">
+5317.182
+</td>
+<td style="text-align:right;">
+3807.208
+</td>
+<td style="text-align:right;">
+4461.491
+</td>
+<td style="text-align:right;">
+4550.300
+</td>
+<td style="text-align:right;">
+3900.639
+</td>
+<td style="text-align:right;">
+1305.823
+</td>
+<td style="text-align:right;">
+4654.967
+</td>
+<td style="text-align:right;">
+3782.046
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14088
+</td>
+<td style="text-align:right;">
+4424.901
+</td>
+<td style="text-align:right;">
+3853.661
+</td>
+<td style="text-align:right;">
+4527.776
+</td>
+<td style="text-align:right;">
+4318.089
+</td>
+<td style="text-align:right;">
+3484.264
+</td>
+<td style="text-align:right;">
+1447.740
+</td>
+<td style="text-align:right;">
+4055.049
+</td>
+<td style="text-align:right;">
+3289.226
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14118
+</td>
+<td style="text-align:right;">
+5104.537
+</td>
+<td style="text-align:right;">
+4268.634
+</td>
+<td style="text-align:right;">
+4110.750
+</td>
+<td style="text-align:right;">
+4387.661
+</td>
+<td style="text-align:right;">
+3901.315
+</td>
+<td style="text-align:right;">
+1460.524
+</td>
+<td style="text-align:right;">
+4242.764
+</td>
+<td style="text-align:right;">
+3212.279
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14127
+</td>
+<td style="text-align:right;">
+5706.292
+</td>
+<td style="text-align:right;">
+4364.241
+</td>
+<td style="text-align:right;">
+4603.708
+</td>
+<td style="text-align:right;">
+4747.488
+</td>
+<td style="text-align:right;">
+3915.401
+</td>
+<td style="text-align:right;">
+1740.892
+</td>
+<td style="text-align:right;">
+4482.711
+</td>
+<td style="text-align:right;">
+3393.733
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14194
+</td>
+<td style="text-align:right;">
+5676.327
+</td>
+<td style="text-align:right;">
+4162.057
+</td>
+<td style="text-align:right;">
+4961.301
+</td>
+<td style="text-align:right;">
+4398.171
+</td>
+<td style="text-align:right;">
+3427.092
+</td>
+<td style="text-align:right;">
+1629.539
+</td>
+<td style="text-align:right;">
+4427.013
+</td>
+<td style="text-align:right;">
+2851.565
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14197
+</td>
+<td style="text-align:right;">
+5884.131
+</td>
+<td style="text-align:right;">
+4282.643
+</td>
+<td style="text-align:right;">
+4379.148
+</td>
+<td style="text-align:right;">
+4424.835
+</td>
+<td style="text-align:right;">
+3995.823
+</td>
+<td style="text-align:right;">
+1551.573
+</td>
+<td style="text-align:right;">
+4602.824
+</td>
+<td style="text-align:right;">
+3402.922
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14204
+</td>
+<td style="text-align:right;">
+5459.974
+</td>
+<td style="text-align:right;">
+3703.244
+</td>
+<td style="text-align:right;">
+4151.558
+</td>
+<td style="text-align:right;">
+4351.972
+</td>
+<td style="text-align:right;">
+3572.006
+</td>
+<td style="text-align:right;">
+1646.681
+</td>
+<td style="text-align:right;">
+4380.814
+</td>
+<td style="text-align:right;">
+2555.760
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14208
+</td>
+<td style="text-align:right;">
+5005.025
+</td>
+<td style="text-align:right;">
+3947.994
+</td>
+<td style="text-align:right;">
+4307.456
+</td>
+<td style="text-align:right;">
+4315.366
+</td>
+<td style="text-align:right;">
+3684.816
+</td>
+<td style="text-align:right;">
+1439.680
+</td>
+<td style="text-align:right;">
+4344.208
+</td>
+<td style="text-align:right;">
+2242.330
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14214
+</td>
+<td style="text-align:right;">
+5060.277
+</td>
+<td style="text-align:right;">
+4182.438
+</td>
+<td style="text-align:right;">
+4368.321
+</td>
+<td style="text-align:right;">
+4813.690
+</td>
+<td style="text-align:right;">
+3932.955
+</td>
+<td style="text-align:right;">
+1467.075
+</td>
+<td style="text-align:right;">
+4521.619
+</td>
+<td style="text-align:right;">
+2750.499
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14239
+</td>
+<td style="text-align:right;">
+4509.855
+</td>
+<td style="text-align:right;">
+3706.111
+</td>
+<td style="text-align:right;">
+3816.209
+</td>
+<td style="text-align:right;">
+3738.575
+</td>
+<td style="text-align:right;">
+3646.618
+</td>
+<td style="text-align:right;">
+1090.055
+</td>
+<td style="text-align:right;">
+3869.924
+</td>
+<td style="text-align:right;">
+2648.904
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14327
+</td>
+<td style="text-align:right;">
+5206.957
+</td>
+<td style="text-align:right;">
+3838.772
+</td>
+<td style="text-align:right;">
+4342.125
+</td>
+<td style="text-align:right;">
+4467.298
+</td>
+<td style="text-align:right;">
+3680.383
+</td>
+<td style="text-align:right;">
+1304.019
+</td>
+<td style="text-align:right;">
+4322.401
+</td>
+<td style="text-align:right;">
+3075.899
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14426
+</td>
+<td style="text-align:right;">
+4814.134
+</td>
+<td style="text-align:right;">
+3970.362
+</td>
+<td style="text-align:right;">
+3994.451
+</td>
+<td style="text-align:right;">
+3881.549
+</td>
+<td style="text-align:right;">
+3657.549
+</td>
+<td style="text-align:right;">
+1469.320
+</td>
+<td style="text-align:right;">
+4270.031
+</td>
+<td style="text-align:right;">
+2844.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14668
+</td>
+<td style="text-align:right;">
+5227.392
+</td>
+<td style="text-align:right;">
+3898.227
+</td>
+<td style="text-align:right;">
+4148.233
+</td>
+<td style="text-align:right;">
+4154.099
+</td>
+<td style="text-align:right;">
+3817.169
+</td>
+<td style="text-align:right;">
+1671.475
+</td>
+<td style="text-align:right;">
+4182.941
+</td>
+<td style="text-align:right;">
+3525.416
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14708
+</td>
+<td style="text-align:right;">
+4962.562
+</td>
+<td style="text-align:right;">
+3870.104
+</td>
+<td style="text-align:right;">
+4414.772
+</td>
+<td style="text-align:right;">
+4199.288
+</td>
+<td style="text-align:right;">
+3464.495
+</td>
+<td style="text-align:right;">
+1191.188
+</td>
+<td style="text-align:right;">
+4292.413
+</td>
+<td style="text-align:right;">
+3077.765
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14774
+</td>
+<td style="text-align:right;">
+4384.071
+</td>
+<td style="text-align:right;">
+4211.409
+</td>
+<td style="text-align:right;">
+4495.336
+</td>
+<td style="text-align:right;">
+4339.294
+</td>
+<td style="text-align:right;">
+3882.483
+</td>
+<td style="text-align:right;">
+1745.971
+</td>
+<td style="text-align:right;">
+4368.136
+</td>
+<td style="text-align:right;">
+3800.955
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14867
+</td>
+<td style="text-align:right;">
+4420.342
+</td>
+<td style="text-align:right;">
+4165.921
+</td>
+<td style="text-align:right;">
+4757.046
+</td>
+<td style="text-align:right;">
+4198.044
+</td>
+<td style="text-align:right;">
+3345.108
+</td>
+<td style="text-align:right;">
+1515.569
+</td>
+<td style="text-align:right;">
+4374.169
+</td>
+<td style="text-align:right;">
+3551.408
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14881
+</td>
+<td style="text-align:right;">
+4625.981
+</td>
+<td style="text-align:right;">
+3964.294
+</td>
+<td style="text-align:right;">
+4359.125
+</td>
+<td style="text-align:right;">
+4332.484
+</td>
+<td style="text-align:right;">
+3526.458
+</td>
+<td style="text-align:right;">
+1232.242
+</td>
+<td style="text-align:right;">
+3906.129
+</td>
+<td style="text-align:right;">
+2712.908
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14950
+</td>
+<td style="text-align:right;">
+4481.994
+</td>
+<td style="text-align:right;">
+3748.665
+</td>
+<td style="text-align:right;">
+3625.061
+</td>
+<td style="text-align:right;">
+3651.642
+</td>
+<td style="text-align:right;">
+3269.540
+</td>
+<td style="text-align:right;">
+1178.599
+</td>
+<td style="text-align:right;">
+3753.455
+</td>
+<td style="text-align:right;">
+3360.014
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14980
+</td>
+<td style="text-align:right;">
+4581.815
+</td>
+<td style="text-align:right;">
+4252.448
+</td>
+<td style="text-align:right;">
+4684.439
+</td>
+<td style="text-align:right;">
+4616.686
+</td>
+<td style="text-align:right;">
+3972.237
+</td>
+<td style="text-align:right;">
+1448.636
+</td>
+<td style="text-align:right;">
+4538.349
+</td>
+<td style="text-align:right;">
+4093.405
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="blup-based-stability" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> BLUP-based stability</h3>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>indexes <span class="ot">&lt;-</span> <span class="fu">blup_indexes</span>(mod)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>kableExtra<span class="sc">::</span><span class="fu">kable</span>(indexes<span class="sc">$</span>GY)</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+GEN
+</th>
+<th style="text-align:right;">
+Y
+</th>
+<th style="text-align:right;">
+HMGV
+</th>
+<th style="text-align:right;">
+HMGV_R
+</th>
+<th style="text-align:right;">
+RPGV
+</th>
+<th style="text-align:right;">
+RPGV_Y
+</th>
+<th style="text-align:right;">
+RPGV_R
+</th>
+<th style="text-align:right;">
+HMRPGV
+</th>
+<th style="text-align:right;">
+HMRPGV_Y
+</th>
+<th style="text-align:right;">
+HMRPGV_R
+</th>
+<th style="text-align:right;">
+WAASB
+</th>
+<th style="text-align:right;">
+WAASB_R
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+BRS264
+</td>
+<td style="text-align:right;">
+4100.680
+</td>
+<td style="text-align:right;">
+3399.344
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+1.0661581
+</td>
+<td style="text-align:right;">
+3986.544
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+1.0629217
+</td>
+<td style="text-align:right;">
+3974.442
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+4.411137
+</td>
+<td style="text-align:right;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CD151
+</td>
+<td style="text-align:right;">
+3569.772
+</td>
+<td style="text-align:right;">
+3069.257
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.9581046
+</td>
+<td style="text-align:right;">
+3582.514
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.9530240
+</td>
+<td style="text-align:right;">
+3563.516
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+6.472968
+</td>
+<td style="text-align:right;">
+24
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ORS1403
+</td>
+<td style="text-align:right;">
+3431.639
+</td>
+<td style="text-align:right;">
+2937.676
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+0.9262602
+</td>
+<td style="text-align:right;">
+3463.442
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+0.9172999
+</td>
+<td style="text-align:right;">
+3429.938
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+8.474191
+</td>
+<td style="text-align:right;">
+30
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TBIOATON
+</td>
+<td style="text-align:right;">
+4039.934
+</td>
+<td style="text-align:right;">
+3391.916
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+1.0567667
+</td>
+<td style="text-align:right;">
+3951.428
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+1.0551504
+</td>
+<td style="text-align:right;">
+3945.384
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+3.645526
+</td>
+<td style="text-align:right;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TBIODUQUE
+</td>
+<td style="text-align:right;">
+3494.970
+</td>
+<td style="text-align:right;">
+2955.484
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+0.9377248
+</td>
+<td style="text-align:right;">
+3506.310
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+0.9320161
+</td>
+<td style="text-align:right;">
+3484.964
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+4.967330
+</td>
+<td style="text-align:right;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI09004
+</td>
+<td style="text-align:right;">
+4044.224
+</td>
+<td style="text-align:right;">
+3507.389
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+1.0743143
+</td>
+<td style="text-align:right;">
+4017.041
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+1.0640415
+</td>
+<td style="text-align:right;">
+3978.629
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+9.492961
+</td>
+<td style="text-align:right;">
+33
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI09007
+</td>
+<td style="text-align:right;">
+3637.321
+</td>
+<td style="text-align:right;">
+3140.779
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+0.9751691
+</td>
+<td style="text-align:right;">
+3646.321
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+0.9716251
+</td>
+<td style="text-align:right;">
+3633.069
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+6.223232
+</td>
+<td style="text-align:right;">
+20
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI09031
+</td>
+<td style="text-align:right;">
+3589.642
+</td>
+<td style="text-align:right;">
+3215.725
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+0.9772566
+</td>
+<td style="text-align:right;">
+3654.126
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0.9732532
+</td>
+<td style="text-align:right;">
+3639.157
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+4.376393
+</td>
+<td style="text-align:right;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI09037
+</td>
+<td style="text-align:right;">
+3615.978
+</td>
+<td style="text-align:right;">
+3121.602
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+0.9703666
+</td>
+<td style="text-align:right;">
+3628.363
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+0.9674728
+</td>
+<td style="text-align:right;">
+3617.543
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+5.990468
+</td>
+<td style="text-align:right;">
+19
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI130679
+</td>
+<td style="text-align:right;">
+3511.346
+</td>
+<td style="text-align:right;">
+3035.891
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+0.9468020
+</td>
+<td style="text-align:right;">
+3540.251
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0.9438644
+</td>
+<td style="text-align:right;">
+3529.267
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+3.899486
+</td>
+<td style="text-align:right;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI130755
+</td>
+<td style="text-align:right;">
+3507.908
+</td>
+<td style="text-align:right;">
+3187.475
+</td>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:right;">
+0.9639141
+</td>
+<td style="text-align:right;">
+3604.236
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+0.9600174
+</td>
+<td style="text-align:right;">
+3589.666
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+4.604697
+</td>
+<td style="text-align:right;">
+14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI130758
+</td>
+<td style="text-align:right;">
+3420.731
+</td>
+<td style="text-align:right;">
+3116.108
+</td>
+<td style="text-align:right;">
+26
+</td>
+<td style="text-align:right;">
+0.9449113
+</td>
+<td style="text-align:right;">
+3533.182
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+0.9420777
+</td>
+<td style="text-align:right;">
+3522.586
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+5.641056
+</td>
+<td style="text-align:right;">
+18
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI131313
+</td>
+<td style="text-align:right;">
+3579.175
+</td>
+<td style="text-align:right;">
+2912.168
+</td>
+<td style="text-align:right;">
+34
+</td>
+<td style="text-align:right;">
+0.9557968
+</td>
+<td style="text-align:right;">
+3573.885
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+0.9391616
+</td>
+<td style="text-align:right;">
+3511.683
+</td>
+<td style="text-align:right;">
+31
+</td>
+<td style="text-align:right;">
+8.741502
+</td>
+<td style="text-align:right;">
+31
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14001
+</td>
+<td style="text-align:right;">
+3705.031
+</td>
+<td style="text-align:right;">
+3163.598
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+0.9904624
+</td>
+<td style="text-align:right;">
+3703.505
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+0.9870455
+</td>
+<td style="text-align:right;">
+3690.728
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+4.104274
+</td>
+<td style="text-align:right;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14022
+</td>
+<td style="text-align:right;">
+3634.768
+</td>
+<td style="text-align:right;">
+3145.821
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+0.9739454
+</td>
+<td style="text-align:right;">
+3641.745
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+0.9670467
+</td>
+<td style="text-align:right;">
+3615.950
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+10.242641
+</td>
+<td style="text-align:right;">
+36
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14026
+</td>
+<td style="text-align:right;">
+4079.307
+</td>
+<td style="text-align:right;">
+3539.613
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1.0772170
+</td>
+<td style="text-align:right;">
+4027.895
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1.0728824
+</td>
+<td style="text-align:right;">
+4011.687
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+5.592509
+</td>
+<td style="text-align:right;">
+17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14050
+</td>
+<td style="text-align:right;">
+3538.600
+</td>
+<td style="text-align:right;">
+2935.837
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:right;">
+0.9426835
+</td>
+<td style="text-align:right;">
+3524.851
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+0.9366917
+</td>
+<td style="text-align:right;">
+3502.447
+</td>
+<td style="text-align:right;">
+32
+</td>
+<td style="text-align:right;">
+4.384475
+</td>
+<td style="text-align:right;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14055
+</td>
+<td style="text-align:right;">
+4046.443
+</td>
+<td style="text-align:right;">
+3338.849
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+1.0559979
+</td>
+<td style="text-align:right;">
+3948.553
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+1.0495848
+</td>
+<td style="text-align:right;">
+3924.573
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+6.758444
+</td>
+<td style="text-align:right;">
+25
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14088
+</td>
+<td style="text-align:right;">
+3654.766
+</td>
+<td style="text-align:right;">
+3243.731
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+0.9912060
+</td>
+<td style="text-align:right;">
+3706.285
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+0.9875995
+</td>
+<td style="text-align:right;">
+3692.800
+</td>
+<td style="text-align:right;">
+17
+</td>
+<td style="text-align:right;">
+7.181687
+</td>
+<td style="text-align:right;">
+26
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14118
+</td>
+<td style="text-align:right;">
+3866.786
+</td>
+<td style="text-align:right;">
+3348.180
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1.0289051
+</td>
+<td style="text-align:right;">
+3847.249
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1.0275836
+</td>
+<td style="text-align:right;">
+3842.307
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+2.499678
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14127
+</td>
+<td style="text-align:right;">
+4239.867
+</td>
+<td style="text-align:right;">
+3670.072
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.1116878
+</td>
+<td style="text-align:right;">
+4156.787
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.1091436
+</td>
+<td style="text-align:right;">
+4147.274
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5.031011
+</td>
+<td style="text-align:right;">
+16
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14194
+</td>
+<td style="text-align:right;">
+4005.844
+</td>
+<td style="text-align:right;">
+3437.317
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+1.0544716
+</td>
+<td style="text-align:right;">
+3942.846
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+1.0473564
+</td>
+<td style="text-align:right;">
+3916.241
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+8.307873
+</td>
+<td style="text-align:right;">
+29
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14197
+</td>
+<td style="text-align:right;">
+4168.978
+</td>
+<td style="text-align:right;">
+3534.048
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1.0872193
+</td>
+<td style="text-align:right;">
+4065.295
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.0857271
+</td>
+<td style="text-align:right;">
+4059.715
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6.309207
+</td>
+<td style="text-align:right;">
+22
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14204
+</td>
+<td style="text-align:right;">
+3724.131
+</td>
+<td style="text-align:right;">
+3291.346
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+1.0028569
+</td>
+<td style="text-align:right;">
+3749.850
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+0.9933115
+</td>
+<td style="text-align:right;">
+3714.158
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+6.448952
+</td>
+<td style="text-align:right;">
+23
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14208
+</td>
+<td style="text-align:right;">
+3636.024
+</td>
+<td style="text-align:right;">
+3126.078
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+0.9744482
+</td>
+<td style="text-align:right;">
+3643.625
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+0.9625810
+</td>
+<td style="text-align:right;">
+3599.252
+</td>
+<td style="text-align:right;">
+25
+</td>
+<td style="text-align:right;">
+8.188630
+</td>
+<td style="text-align:right;">
+28
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14214
+</td>
+<td style="text-align:right;">
+3934.028
+</td>
+<td style="text-align:right;">
+3341.695
+</td>
+<td style="text-align:right;">
+13
+</td>
+<td style="text-align:right;">
+1.0364393
+</td>
+<td style="text-align:right;">
+3875.420
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+1.0316511
+</td>
+<td style="text-align:right;">
+3857.516
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:right;">
+6.231577
+</td>
+<td style="text-align:right;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14239
+</td>
+<td style="text-align:right;">
+3263.829
+</td>
+<td style="text-align:right;">
+2808.385
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+0.8931993
+</td>
+<td style="text-align:right;">
+3339.822
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+0.8891251
+</td>
+<td style="text-align:right;">
+3324.588
+</td>
+<td style="text-align:right;">
+36
+</td>
+<td style="text-align:right;">
+3.265569
+</td>
+<td style="text-align:right;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14327
+</td>
+<td style="text-align:right;">
+3792.597
+</td>
+<td style="text-align:right;">
+3197.783
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:right;">
+1.0023576
+</td>
+<td style="text-align:right;">
+3747.983
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+1.0008608
+</td>
+<td style="text-align:right;">
+3742.386
+</td>
+<td style="text-align:right;">
+15
+</td>
+<td style="text-align:right;">
+2.588900
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14426
+</td>
+<td style="text-align:right;">
+3572.558
+</td>
+<td style="text-align:right;">
+3190.599
+</td>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:right;">
+0.9722236
+</td>
+<td style="text-align:right;">
+3635.307
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+0.9703008
+</td>
+<td style="text-align:right;">
+3628.117
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+3.081889
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14668
+</td>
+<td style="text-align:right;">
+3856.329
+</td>
+<td style="text-align:right;">
+3459.327
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+1.0411919
+</td>
+<td style="text-align:right;">
+3893.191
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+1.0359063
+</td>
+<td style="text-align:right;">
+3873.427
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+4.297511
+</td>
+<td style="text-align:right;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14708
+</td>
+<td style="text-align:right;">
+3666.601
+</td>
+<td style="text-align:right;">
+3064.466
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+0.9732026
+</td>
+<td style="text-align:right;">
+3638.968
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:right;">
+0.9701153
+</td>
+<td style="text-align:right;">
+3627.424
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:right;">
+1.819113
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14774
+</td>
+<td style="text-align:right;">
+3955.560
+</td>
+<td style="text-align:right;">
+3570.168
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+1.0711268
+</td>
+<td style="text-align:right;">
+4005.122
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+1.0595827
+</td>
+<td style="text-align:right;">
+3961.957
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+9.017335
+</td>
+<td style="text-align:right;">
+32
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14867
+</td>
+<td style="text-align:right;">
+3807.374
+</td>
+<td style="text-align:right;">
+3356.203
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+1.0252543
+</td>
+<td style="text-align:right;">
+3833.598
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+1.0177334
+</td>
+<td style="text-align:right;">
+3805.476
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:right;">
+9.578895
+</td>
+<td style="text-align:right;">
+35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14881
+</td>
+<td style="text-align:right;">
+3532.752
+</td>
+<td style="text-align:right;">
+3020.742
+</td>
+<td style="text-align:right;">
+30
+</td>
+<td style="text-align:right;">
+0.9498625
+</td>
+<td style="text-align:right;">
+3551.695
+</td>
+<td style="text-align:right;">
+29
+</td>
+<td style="text-align:right;">
+0.9463929
+</td>
+<td style="text-align:right;">
+3538.721
+</td>
+<td style="text-align:right;">
+28
+</td>
+<td style="text-align:right;">
+3.968622
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14950
+</td>
+<td style="text-align:right;">
+3270.862
+</td>
+<td style="text-align:right;">
+2900.714
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+0.9059717
+</td>
+<td style="text-align:right;">
+3387.580
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+0.9004934
+</td>
+<td style="text-align:right;">
+3367.096
+</td>
+<td style="text-align:right;">
+35
+</td>
+<td style="text-align:right;">
+8.053883
+</td>
+<td style="text-align:right;">
+27
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VI14980
+</td>
+<td style="text-align:right;">
+4113.677
+</td>
+<td style="text-align:right;">
+3493.171
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+1.0845239
+</td>
+<td style="text-align:right;">
+4055.216
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+1.0746910
+</td>
+<td style="text-align:right;">
+4018.450
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+9.544612
+</td>
+<td style="text-align:right;">
+34
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="gge" class="section level3" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> GGE</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mod_gge <span class="ot">&lt;-</span> <span class="fu">gge</span>(blupge, ENV, GEN, GY, <span class="at">svp =</span> <span class="dv">1</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mod_gge,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.gen =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.env =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  my_theme</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mod_gge,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="dv">2</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.gen =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.env =</span> <span class="fl">2.5</span>) <span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  my_theme</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> </span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mod_gge,</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="dv">3</span>,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.gen =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.env =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.win =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  my_theme</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mod_gge,</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="dv">4</span>,</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.gen =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.env =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.win =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  my_theme</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>p5 <span class="ot">&lt;-</span></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mod_gge,</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="dv">6</span>,</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.gen =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.env =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.win =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>  my_theme</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>p6 <span class="ot">&lt;-</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(mod_gge,</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">type =</span> <span class="dv">8</span>,</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.gen =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.env =</span> <span class="fl">2.5</span>,</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>       <span class="at">size.text.win =</span> <span class="fl">3.5</span>) <span class="sc">+</span></span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>  my_theme</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange_ggplot</span>(p1, p2, p3, p4, p5, p6,</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>               <span class="at">ncol =</span> <span class="dv">3</span>,</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>               <span class="at">tag_levels =</span> <span class="st">&quot;a&quot;</span>,</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>               <span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>)</span></code></pre></div>
+<p><img src="code_files/figure-html/unnamed-chunk-8-1.png" width="1152" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;figs/fig5_gge.png&quot;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">12</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">9</span>)</span></code></pre></div>
+</div>
+<div id="waasby" class="section level3" number="3.1.5">
+<h3><span class="header-section-number">3.1.5</span> WAASBY</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_waasby</span>(mod, <span class="at">size.tex.lab =</span> <span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  my_theme <span class="sc">+</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.1</span>))</span></code></pre></div>
+<p><img src="code_files/figure-html/unnamed-chunk-9-1.png" width="768" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;figs/fig6_waasby.png&quot;</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">5</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">6</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="correlation-between-climate-variables" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Correlation between climate variables</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>env_data <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_cols</span>(tmean<span class="sc">:</span>rta) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">correlate</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">network_plot</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="fu">guide_colorbar</span>(<span class="at">barheight =</span> <span class="dv">1</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                                <span class="at">barwidth =</span> <span class="dv">20</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>                                <span class="at">ticks.colour =</span> <span class="st">&quot;black&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="code_files/figure-html/unnamed-chunk-10-1.png" width="768" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;figs/fig_network.png&quot;</span>, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">8</span>)</span></code></pre></div>
+</div>
+<div id="environmental-kinships" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Environmental kinships</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>EC <span class="ot">&lt;-</span> <span class="fu">W_matrix</span>(<span class="at">env.data =</span> env_data,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">by.interval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">statistic =</span> <span class="st">&#39;quantile&#39;</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">time.window =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">55</span>, <span class="dv">70</span>, <span class="dv">95</span>, <span class="dv">130</span>))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>distances <span class="ot">&lt;-</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">env_kernel</span>(<span class="at">env.data =</span> EC,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">gaussian =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">superheat</span>(distances[[<span class="dv">2</span>]],</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">heat.pal =</span> <span class="fu">c</span>(<span class="st">&quot;#b35806&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;#542788&quot;</span>),</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">pretty.order.rows =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">pretty.order.cols =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">col.dendrogram =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.width =</span> <span class="dv">2</span>,</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>            <span class="at">left.label.size =</span> <span class="fl">0.1</span>,</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">bottom.label.text.size =</span> <span class="dv">5</span>,</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>            <span class="at">bottom.label.size =</span> <span class="fl">0.2</span>,</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">bottom.label.text.angle =</span> <span class="dv">90</span>,</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.text.size =</span> <span class="dv">17</span>,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">heat.lim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>            <span class="at">padding =</span> <span class="dv">1</span>,</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.height=</span><span class="fl">0.2</span>)</span></code></pre></div>
+<p><img src="code_files/figure-html/unnamed-chunk-11-1.png" width="768" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">&quot;figs/fig2_heat_env.png&quot;</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">plot =</span> d<span class="sc">$</span>plot,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">width =</span> <span class="dv">6</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">height =</span> <span class="dv">6</span>)</span></code></pre></div>
+</div>
+<div id="principal-component-analysis" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Principal Component Analysis</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>prec <span class="ot">&lt;-</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  env_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove_cols</span>(LON<span class="sc">:</span>YYYYMMDD, daysFromStart) <span class="sc">|&gt;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(env) <span class="sc">%&gt;%</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">prec =</span> <span class="fu">sum</span>(prec))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the mean by environment and year</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>df_long <span class="ot">&lt;-</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  env_data <span class="sc">%&gt;%</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove_cols</span>(LON<span class="sc">:</span>YYYYMMDD, daysFromStart) <span class="sc">|&gt;</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">remove_cols</span>(prec) <span class="sc">%&gt;%</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="sc">-</span>env)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># bind environment WAASB, GY, and climate traits</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  df_long <span class="sc">%&gt;%</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">means_by</span>(env, name) <span class="sc">%&gt;%</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> name, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(waasb_env <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">GY =</span> Y), <span class="at">by =</span> <span class="st">&quot;env&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(prec, <span class="at">by =</span> <span class="st">&quot;env&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">me =</span> <span class="fu">case_when</span>(env <span class="sc">%in%</span> me1 <span class="sc">~</span> <span class="st">&quot;ME1&quot;</span>,</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>                        env <span class="sc">%in%</span> me2 <span class="sc">~</span> <span class="st">&quot;ME2&quot;</span>,</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>                        env <span class="sc">%in%</span> me3 <span class="sc">~</span> <span class="st">&quot;ME3&quot;</span>,</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>                        env <span class="sc">%in%</span> me4 <span class="sc">~</span> <span class="st">&quot;ME4&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="st">&quot;env&quot;</span>)</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the PCA with</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>pca_model <span class="ot">&lt;-</span> <span class="fu">PCA</span>(pca,</span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>                 <span class="at">quali.sup =</span> <span class="dv">17</span>,</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>                 <span class="at">graph =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_pca_biplot</span>(pca_model,</span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>                <span class="at">habillage =</span> <span class="dv">17</span>,</span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>                <span class="co"># font.main = c(8, &quot;bold&quot;, &quot;red&quot;),</span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>                <span class="at">geom.var =</span> <span class="fu">c</span>(<span class="st">&quot;arrow&quot;</span>, <span class="st">&quot;text&quot;</span>),</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a>                <span class="at">title =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a>  my_theme <span class="sc">+</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="code_files/figure-html/unnamed-chunk-12-1.png" width="768" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;figs/fig3_pca.png&quot;</span>, <span class="at">width =</span> <span class="dv">4</span>, <span class="at">height =</span> <span class="dv">4</span>)</span></code></pre></div>
+</div>
+<div id="environmental-tipology" class="section level2 panelset" number="3.5">
+<h2><span class="header-section-number">3.5</span> Environmental tipology</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>names.window <span class="ot">&lt;-</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">&#39;1-Tillering&#39;</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;2-Boosting&#39;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;3-heading/flowering&#39;</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;4-kernel milk stage&#39;</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;5-physiological maturity&#39;</span>,</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;&quot;</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">env_typing</span>(<span class="at">env.data =</span> env_data,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">env.id =</span> <span class="st">&quot;env&quot;</span>,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">var.id =</span> <span class="fu">c</span>(<span class="st">&quot;tmax&quot;</span>, <span class="st">&quot;vpd&quot;</span>, <span class="st">&quot;rta&quot;</span>, <span class="st">&quot;etp&quot;</span>, <span class="st">&quot;rh&quot;</span>),</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">by.interval =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">time.window =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">55</span>, <span class="dv">70</span>, <span class="dv">95</span>, <span class="dv">130</span>),</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">names.window =</span> names.window)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>out2 <span class="ot">&lt;-</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(out,</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>           env.variable,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&quot;var&quot;</span>, <span class="st">&quot;freq&quot;</span>),</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">sep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">extra =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">me =</span> <span class="fu">case_when</span>(env <span class="sc">%in%</span> me1 <span class="sc">~</span> <span class="st">&quot;ME1&quot;</span>,</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>                        env <span class="sc">%in%</span> me2 <span class="sc">~</span> <span class="st">&quot;ME2&quot;</span>,</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>                        env <span class="sc">%in%</span> me3 <span class="sc">~</span> <span class="st">&quot;ME3&quot;</span>,</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>                        env <span class="sc">%in%</span> me4 <span class="sc">~</span> <span class="st">&quot;ME4&quot;</span>))</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the distribution of envirotypes</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>variable <span class="ot">&lt;-</span> <span class="st">&quot;tmax&quot;</span></span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span></span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>  out2 <span class="sc">|&gt;</span></span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(var <span class="sc">==</span> variable) <span class="sc">|&gt;</span> <span class="co"># change the variable here</span></span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Freq, <span class="at">y=</span>env,<span class="at">fill=</span>freq),</span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>,</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">width =</span> <span class="dv">1</span>,</span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>           <span class="at">size=</span>.<span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(me<span class="sc">~</span>interval, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">space =</span> <span class="st">&quot;free&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Relative Frequency of the maximum air temperature (ºC)&#39;</span>)<span class="sc">+</span></span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Environment&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">&#39;Envirotype&#39;</span>)<span class="sc">+</span></span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">9</span>),</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">&quot;gray95&quot;</span>,<span class="at">size=</span><span class="dv">1</span>),</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&#39;bottom&#39;</span>)</span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a><span class="co"># by mega environment</span></span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span></span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>  out2 <span class="sc">|&gt;</span></span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(var <span class="sc">==</span> variable) <span class="sc">|&gt;</span> <span class="co"># change the variable here</span></span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum_by</span>(me, freq, interval) <span class="sc">|&gt;</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">x=</span>Freq, <span class="at">y=</span>me,<span class="at">fill=</span>freq),</span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">&quot;fill&quot;</span>,</span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>           <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>,</span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>           <span class="at">width =</span> <span class="dv">1</span>,</span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>           <span class="at">size=</span>.<span class="dv">2</span>)<span class="sc">+</span></span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>interval, <span class="at">nrow =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>))<span class="sc">+</span></span>
+<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&#39;Relative Frequency of the maximum air temperature (ºC)&#39;</span>)<span class="sc">+</span></span>
+<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Mega Environment&quot;</span>)<span class="sc">+</span></span>
+<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">&#39;Envirotype&#39;</span>)<span class="sc">+</span></span>
+<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">9</span>),</span>
+<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>        <span class="at">strip.background =</span> <span class="fu">element_rect</span>(<span class="at">fill=</span><span class="st">&quot;gray95&quot;</span>,<span class="at">size=</span><span class="dv">1</span>),</span>
+<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&#39;bottom&#39;</span>) <span class="sc">+</span></span>
+<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">direction =</span> <span class="dv">1</span>)</span>
+<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange_ggplot</span>(p1, p2,</span>
+<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a>               <span class="at">heights =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>),</span>
+<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a>               <span class="at">tag_levels =</span> <span class="st">&quot;a&quot;</span>,</span>
+<span id="cb18-82"><a href="#cb18-82" aria-hidden="true" tabindex="-1"></a>               <span class="at">guides =</span> <span class="st">&quot;collect&quot;</span>)</span></code></pre></div>
+<p><img src="code_files/figure-html/unnamed-chunk-13-1.png" width="768" /></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;figs/fig4_typology_tmax.png&quot;</span>, <span class="at">width =</span> <span class="dv">12</span>, <span class="at">height =</span> <span class="dv">7</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="section-info" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Section info</h1>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="do">## R version 4.2.0 (2022-04-22 ucrt)</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Platform: x86_64-w64-mingw32/x64 (64-bit)</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Running under: Windows 10 x64 (build 22000)</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Matrix products: default</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="do">## locale:</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] LC_COLLATE=Portuguese_Brazil.utf8  LC_CTYPE=Portuguese_Brazil.utf8   </span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [3] LC_MONETARY=Portuguese_Brazil.utf8 LC_NUMERIC=C                      </span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [5] LC_TIME=Portuguese_Brazil.utf8    </span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="do">## attached base packages:</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a><span class="do">## other attached packages:</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] corrr_0.4.3      superheat_0.1.0  sp_1.5-0         ggrepel_0.9.1   </span></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] FactoMineR_2.4   factoextra_1.0.7 rio_0.5.29       metan_1.17.0    </span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] EnvRtype_1.1.0   forcats_0.5.1    stringr_1.4.0    dplyr_1.0.9     </span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] purrr_0.3.4      readr_2.1.2      tidyr_1.2.0      tibble_3.1.7    </span></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [17] ggplot2_3.3.6    tidyverse_1.3.1 </span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a><span class="do">## loaded via a namespace (and not attached):</span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="do">##   [1] minqa_1.2.4          colorspace_2.0-3     ggsignif_0.6.3      </span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="do">##   [4] ellipsis_0.3.2       ggdendro_0.1.23      fs_1.5.2            </span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="do">##   [7] rstudioapi_0.13      ggpubr_0.4.0         farver_2.1.1        </span></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  [10] DT_0.23              fansi_1.0.3          lubridate_1.8.0     </span></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="do">##  [13] mathjaxr_1.6-0       xml2_1.3.3           codetools_0.2-18    </span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="do">##  [16] splines_4.2.0        leaps_3.1            knitr_1.39          </span></span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="do">##  [19] polyclip_1.10-0      jsonlite_1.8.0       nloptr_2.0.3        </span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="do">##  [22] broom_1.0.0          cluster_2.1.3        dbplyr_2.2.1        </span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="do">##  [25] ggforce_0.3.3        compiler_4.2.0       httr_1.4.3          </span></span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  [28] backports_1.4.1      assertthat_0.2.1     Matrix_1.4-1        </span></span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  [31] fastmap_1.1.0        cli_3.3.0            tweenr_1.0.2        </span></span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="do">##  [34] htmltools_0.5.2      tools_4.2.0          lmerTest_3.1-3      </span></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a><span class="do">##  [37] gtable_0.3.0         glue_1.6.2           reshape2_1.4.4      </span></span>
+<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  [40] Rcpp_1.0.8.3         carData_3.0-5        cellranger_1.1.0    </span></span>
+<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  [43] jquerylib_0.1.4      vctrs_0.4.1          nlme_3.1-157        </span></span>
+<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="do">##  [46] iterators_1.0.14     xfun_0.31            openxlsx_4.2.5      </span></span>
+<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  [49] lme4_1.1-30          rvest_1.0.2          lifecycle_1.0.1     </span></span>
+<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a><span class="do">##  [52] rstatix_0.7.0        MASS_7.3-57          scales_1.2.0        </span></span>
+<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a><span class="do">##  [55] ragg_1.2.2           hms_1.1.1            RColorBrewer_1.1-3  </span></span>
+<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a><span class="do">##  [58] yaml_2.3.5           curl_4.3.2           sass_0.4.1          </span></span>
+<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a><span class="do">##  [61] reshape_0.8.9        stringi_1.7.6        highr_0.9           </span></span>
+<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="do">##  [64] foreach_1.5.2        boot_1.3-28          zip_2.2.0           </span></span>
+<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a><span class="do">##  [67] rlang_1.0.3          pkgconfig_2.0.3      systemfonts_1.0.4   </span></span>
+<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="do">##  [70] evaluate_0.15        lattice_0.20-45      patchwork_1.1.1     </span></span>
+<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a><span class="do">##  [73] htmlwidgets_1.5.4    labeling_0.4.2       tidyselect_1.1.2    </span></span>
+<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a><span class="do">##  [76] GGally_2.1.2         plyr_1.8.7           magrittr_2.0.3      </span></span>
+<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a><span class="do">##  [79] bookdown_0.27        R6_2.5.1             generics_0.1.3      </span></span>
+<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a><span class="do">##  [82] DBI_1.1.3            pillar_1.7.0         haven_2.5.0         </span></span>
+<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a><span class="do">##  [85] foreign_0.8-82       withr_2.5.0          abind_1.4-5         </span></span>
+<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a><span class="do">##  [88] scatterplot3d_0.3-41 car_3.1-0            modelr_0.1.8        </span></span>
+<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a><span class="do">##  [91] crayon_1.5.1         utf8_1.2.2           tzdb_0.3.0          </span></span>
+<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a><span class="do">##  [94] rmarkdown_2.14       grid_4.2.0           readxl_1.4.0        </span></span>
+<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a><span class="do">##  [97] data.table_1.14.2    rmdformats_1.0.4     reprex_2.0.1        </span></span>
+<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a><span class="do">## [100] digest_0.6.29        flashClust_1.01-2    numDeriv_2016.8-1.1 </span></span>
+<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a><span class="do">## [103] textshaping_0.3.6    munsell_0.5.0        bslib_0.3.1</span></span></code></pre></div>
+</div>
+</div>
+
+   
+   
+            
+      
+
+  <script>
+    $(document).ready(function () {
+
+			
+ 		
+		$('#content img:not(.no-lightbox)').addClass("image-lb");
+	$('#content').magnificPopup({
+	    type:'image',
+	    closeOnContentClick: false,
+	    closeBtnInside: false,
+	    delegate: '.image-lb',
+	    gallery: {enabled: true },
+	    image: {
+	        verticalFit: true,
+		titleSrc: 'alt'
+	    }
+ 	});
+ 	    });
+  </script>
+
+
+
+    <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+	var script = document.createElement("script");
+	script.type = "text/javascript";
+	script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+	document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+  
+</body>
+</html>

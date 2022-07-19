@@ -1,0 +1,34 @@
+name: paper_mgidi_pm
+output_dir: docs
+exclude: ["*.docx", "*.pptx", "*.pdf", "*.R", "*.tmp"]
+output:
+  rmdformats::readthedown:
+    toc_depth: 3
+    use_bookdown: true
+    number_sections: true
+    highlight: tango
+    df_print: paged
+    lightbox: true
+    gallery: true
+navbar:
+  title: Supplementary Material
+  left:
+  - text: About
+    icon: fa fa-home
+    href: index.html
+  - text: "Sup. Codes"
+    icon: fa fa-file-code-o
+    href: code.html
+  - text: "Sup. Figures"
+    icon: fa fa-chart-area
+    href: sup_figures.html
+  - text: "Code and data"
+    icon: fa fa-download
+    href: ""
+  - text: "Doi"
+    icon: ai ai-doi ai
+    href: ""
+  right:
+  - text: metan
+    icon: fa-github
+    href: https://github.com/TiagoOlivoto/metan

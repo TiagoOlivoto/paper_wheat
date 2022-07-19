@@ -1,0 +1,426 @@
+% Analysis 
+
+```{r global_options, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE,
+                      comment = "##",
+                      collapse = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+
+```
+
+
+# Libraries
+
+To reproduce the examples of this material, the R packages the following packages are needed.
+
+```{r warning=FALSE, message=FALSE}
+
+library(tidyverse)
+library(EnvRtype)
+library(metan)
+library(rio)
+library(factoextra)
+library(FactoMineR)
+library(ggrepel)
+library(sp)
+library(superheat)
+library(corrr)
+
+my_theme <- 
+  theme_bw() +
+  theme(panel.spacing = unit(0, "cm"),
+        panel.grid = element_blank(),
+        legend.position = "bottom")
+```
+
+
+# Datasets
+## Traits
+```{r}
+me1 <- c("E3", "E4", "E5")
+me2 <- c("E1", "E2", "E7")
+me3 <- c("E6")
+me4 <- c("E8")
+
+df_traits <- 
+  import("https://bit.ly/df_traits_wheat") |> 
+  as_factor(1:6) |> 
+  mutate(me = case_when(ENV %in% me1 ~ "ME1",
+                        ENV %in% me2 ~ "ME2",
+                        ENV %in% me3 ~ "ME3",
+                        ENV %in% me4 ~ "ME4"))
+
+```
+
+
+## Climate variables
+### Scripts to gather data
+
+```{r eval=FALSE}
+df_env <- import("https://bit.ly/loc_info_wheat")
+ENV <- df_env$ENV |> as_character()
+LAT <- df_env$LAT
+LON <- df_env$LON
+ALT <- df_env$ALT
+START <- df_env$START
+END <- df_env$END
+
+# see more at https://github.com/allogamous/EnvRtype
+df_climate <-
+  get_weather(env.id = ENV,
+              lat = LAT,
+              lon = LON,
+              start.day = START,
+              end.day = END)
+# GDD: Growing Degree Day (oC/day)
+# FRUE: Effect of temperature on radiation use efficiency (from 0 to 1)
+# T2M_RANGE: Daily Temperature Range (oC day)
+# SPV: Slope of saturation vapour pressure curve (kPa.Celsius)
+# VPD: Vapour pressure deficit (kPa)
+# ETP: Potential Evapotranspiration (mm.day)
+# PEPT: Deficit by Precipitation (mm.day)
+# n: Actual duration of sunshine (hour)
+# N: Daylight hours (hour)
+# RTA: Extraterrestrial radiation (MJ/m^2/day)
+# SRAD: Solar radiation (MJ/m^2/day)
+# T2M: Temperature at 2 Meters
+# T2M_MAX: Maximum Temperature at 2 Meters
+# T2M_MIN: Minimum Temperature at 2 Meters
+# PRECTOT: Precipitation
+# WS2M: Wind Speed at 2 Meters
+# RH2M: Relative Humidity at 2 Meters
+# T2MDEW: Dew/Frost Point at 2 Meters
+# ALLSKY_SFC_LW_DWN: Downward Thermal Infrared (Longwave) Radiative Flux
+# ALLSKY_SFC_SW_DWN: All Sky Insolation Incident on a Horizontal Surface
+# ALLSKY_TOA_SW_DWN: Top-of-atmosphere Insolation
+# [1] "env"       "ETP"       "GDD"         "PETP"      "RH2M"      "SPV"
+# [8] "T2M"       "T2M_MAX"   "T2M_MIN"   "T2M_RANGE" "T2MDEW"    "VPD"
+
+# Compute other parameters
+env_data <-
+  df_climate %>%
+  as.data.frame() %>%
+  param_temperature(Tbase1 = 5, # choose the base temperature here
+                    Tbase2 = 28, # choose the base temperature here
+                    merge = TRUE) %>%
+  param_atmospheric(merge = TRUE) %>%
+  param_radiation(merge = TRUE)
+```
+
+### Tidy climate data
+```{r}
+env_data <- import("https://bit.ly/df_climate_tidy")
+str(env_data)
+id_var <- names(env_data)[10:23]
+```
+
+
+
+
+
+# Scripts
+## Deviance analysis
+### Model
+```{r}
+mod <-
+  waasb(df_traits,
+        env = ENV,
+        gen = LINHAGEM,
+        rep = BLOCO,
+        resp = GY,
+        wresp = 65) # maior peso para performance
+
+waasb_env <-
+  mod$GY$model %>%
+  select_cols(type, Code, Y, WAASB) %>%
+  subset(type == "ENV") %>%
+  remove_cols(type) %>%
+  rename(env = Code)
+```
+
+### BLUPs
+```{r}
+blupge <- gmd(mod, "blupge") 
+
+blupge |> 
+  make_mat(GEN, ENV, GY) |> 
+  kableExtra::kable()
+```
+
+### BLUP-based stability
+```{r}
+indexes <- blup_indexes(mod)
+kableExtra::kable(indexes$GY)
+```
+
+
+### GGE
+```{r fig.width=12, fig.height=9}
+mod_gge <- gge(blupge, ENV, GEN, GY, svp = 1)
+p1 <- 
+  plot(mod_gge,
+       size.text.gen = 2.5,
+       size.text.env = 2.5) +
+  my_theme
+
+p2 <- 
+  plot(mod_gge,
+       type = 2,
+       size.text.gen = 2.5,
+       size.text.env = 2.5) +
+  my_theme
+
+p3 <- 
+  plot(mod_gge,
+       type = 3,
+       size.text.gen = 2.5,
+       size.text.env = 2.5,
+       size.text.win = 3.5) +
+  my_theme
+
+p4 <-
+  plot(mod_gge,
+       type = 4,
+       size.text.gen = 2.5,
+       size.text.env = 2.5,
+       size.text.win = 3.5) +
+  my_theme
+
+p5 <-
+  plot(mod_gge,
+       type = 6,
+       size.text.gen = 2.5,
+       size.text.env = 2.5,
+       size.text.win = 3.5) +
+  my_theme
+
+p6 <-
+  plot(mod_gge,
+       type = 8,
+       size.text.gen = 2.5,
+       size.text.env = 2.5,
+       size.text.win = 3.5) +
+  my_theme
+
+arrange_ggplot(p1, p2, p3, p4, p5, p6,
+               ncol = 3,
+               tag_levels = "a",
+               guides = "collect")
+
+ggsave("figs/fig5_gge.png",
+       width = 12,
+       height = 9)
+```
+
+
+### WAASBY
+```{r}
+plot_waasby(mod, size.tex.lab = 6) +
+  my_theme +
+  theme(legend.position = c(0.8, 0.1))
+ggsave("figs/fig6_waasby.png",
+       width = 5,
+       height = 6)
+```
+
+
+## Correlation between climate variables
+```{r}
+env_data |> 
+  select_cols(tmean:rta) |> 
+  correlate() |> 
+  network_plot() +
+  guides(color = guide_colorbar(barheight = 1,
+                                barwidth = 20,
+                                ticks.colour = "black")) +
+  theme(legend.position = "bottom")
+
+ggsave("figs/fig_network.png", width = 8, height = 8)
+```
+
+
+## Environmental kinships
+```{r}
+
+EC <- W_matrix(env.data = env_data,
+               by.interval = TRUE,
+               statistic = 'quantile',
+               time.window = c(0, 30, 55, 70, 95, 130))
+
+
+distances <-
+  env_kernel(env.data = EC,
+             gaussian = TRUE)
+
+d <-
+  superheat(distances[[2]],
+            heat.pal = c("#b35806", "white", "#542788"),
+            pretty.order.rows = TRUE,
+            pretty.order.cols = TRUE,
+            col.dendrogram = TRUE,
+            legend.width = 2,
+            left.label.size = 0.1,
+            bottom.label.text.size = 5,
+            bottom.label.size = 0.2,
+            bottom.label.text.angle = 90,
+            legend.text.size = 17,
+            heat.lim = c(0, 1),
+            padding = 1,
+            legend.height=0.2)
+
+
+ggsave(filename = "figs/fig2_heat_env.png",
+       plot = d$plot,
+       width = 6,
+       height = 6)
+
+```
+
+
+
+## Principal Component Analysis
+```{r }
+
+prec <-
+  env_data %>%
+  remove_cols(LON:YYYYMMDD, daysFromStart) |>
+  group_by(env) %>%
+  summarise(prec = sum(prec))
+
+# compute the mean by environment and year
+df_long <-
+  env_data %>%
+  remove_cols(LON:YYYYMMDD, daysFromStart) |>
+  remove_cols(prec) %>%
+  pivot_longer(-env)
+
+# bind environment WAASB, GY, and climate traits
+
+pca <-
+  df_long %>%
+  means_by(env, name) %>%
+  pivot_wider(names_from = name, values_from = value) %>%
+  left_join(waasb_env |> rename(GY = Y), by = "env") %>%
+  left_join(prec, by = "env") %>%
+  mutate(me = case_when(env %in% me1 ~ "ME1",
+                        env %in% me2 ~ "ME2",
+                        env %in% me3 ~ "ME3",
+                        env %in% me4 ~ "ME4")) |>
+  column_to_rownames("env")
+
+
+# compute the PCA with
+pca_model <- PCA(pca,
+                 quali.sup = 17,
+                 graph = FALSE)
+
+
+fviz_pca_biplot(pca_model,
+                repel = TRUE,
+                habillage = 17,
+                # font.main = c(8, "bold", "red"),
+                geom.var = c("arrow", "text"),
+                title = NULL) +
+  my_theme +
+  theme(legend.title = element_blank())
+
+ggsave("figs/fig3_pca.png", width = 4, height = 4)
+
+```
+
+
+## Environmental tipology {.panelset}
+```{r}
+names.window <-
+  c('1-Tillering',
+    '2-Boosting',
+    '3-heading/flowering',
+    '4-kernel milk stage',
+    '5-physiological maturity',
+    "")
+
+out <-
+  env_typing(env.data = env_data,
+             env.id = "env",
+             var.id = c("tmax", "vpd", "rta", "etp", "rh"),
+             by.interval = TRUE,
+             time.window = c(0, 30, 55, 70, 95, 130),
+             names.window = names.window)
+
+out2 <-
+  separate(out,
+           env.variable,
+           into = c("var", "freq"),
+           sep = "_",
+           extra = "drop") |>
+  mutate(me = case_when(env %in% me1 ~ "ME1",
+                        env %in% me2 ~ "ME2",
+                        env %in% me3 ~ "ME3",
+                        env %in% me4 ~ "ME4"))
+
+# plot the distribution of envirotypes
+variable <- "tmax"
+p1 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  ggplot() +
+  geom_bar(aes(x=Freq, y=env,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_grid(me~interval, scales = "free", space = "free")+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab('Relative Frequency of the maximum air temperature (ºC)')+
+  ylab("Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom')
+
+# by mega environment
+p2 <-
+  out2 |>
+  subset(var == variable) |> # change the variable here
+  sum_by(me, freq, interval) |>
+  ggplot() +
+  geom_bar(aes(x=Freq, y=me,fill=freq),
+           position = "fill",
+           stat = "identity",
+           width = 1,
+           color = "white",
+           size=.2)+
+  facet_wrap(~interval, nrow = 1)+
+  scale_y_discrete(expand = c(0,0))+
+  scale_x_continuous(expand = c(0,0))+
+  xlab('Relative Frequency of the maximum air temperature (ºC)')+
+  ylab("Mega Environment")+
+  labs(fill='Envirotype')+
+  theme(axis.title = element_text(size=12),
+        legend.text = element_text(size=9),
+        strip.text = element_text(size=12),
+        legend.title = element_text(size=12),
+        strip.background = element_rect(fill="gray95",size=1),
+        legend.position = 'bottom') +
+  scale_fill_discrete(direction = 1)
+
+arrange_ggplot(p1, p2,
+               heights = c(0.6, 0.4),
+               tag_levels = "a",
+               guides = "collect")
+ggsave("figs/fig4_typology_tmax.png", width = 12, height = 7)
+```
+
+
+
+# Section info
+```{r}
+sessionInfo()
+```
+
